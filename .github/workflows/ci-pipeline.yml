@@ -37,7 +37,7 @@ jobs:
 
       - name: Apply Updates (Experimental!)
         run: |
-          npx ng update --all --force
+          npx ng update @angular/cli @angular/core --force
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -am "chore: auto-update Angular dependencies" || echo "No changes"
