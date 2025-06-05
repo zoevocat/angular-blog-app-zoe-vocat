@@ -1,6 +1,7 @@
 # BlogApp
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+Dieses Projekt wurde im Rahmes des Kurses "Web Applikaitonen" erstellt. Die Aufgabenstellung ist ein Blog-System, 
+welches Schritt für Schritt entwickelt wird.
 
 ## Development server
 
