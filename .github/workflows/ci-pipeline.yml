@@ -32,13 +32,21 @@ jobs:
           npm install --no-save karma karma-cli karma-chrome-launcher karma-coverage
           npm test -- --watch=false --browsers=ChromeHeadless
 
+      - name: Run Security Audit
+        run: npm audit --audit-level=moderate || true
+
       - name: Check for Angular Updates
         run: npx ng update --force
 
-      - name: Apply Updates (Experimental!)
+      - name: Check and Apply Other Package Updates
         run: |
-          npx ng update @angular/cli @angular/core --force
+          npm install -g npm-check-updates
+          ncu -u
+          npm install
+
+      - name: Commit and Push Updates
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: auto-update Angular dependencies" || echo "No changes"
-          git push || echo "No push (no changes or no permission)"
+          git commit -am "chore: auto-update dependencies [CI]" || echo "No changes"
+          git push || echo "No push (maybe no permission or protected branch)"
