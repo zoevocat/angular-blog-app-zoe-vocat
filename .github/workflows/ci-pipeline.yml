@@ -1,0 +1,44 @@
+name: Angular CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_test_update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: npm run build -- --configuration production
+
+      - name: Run Tests
+        run: |
+          npm install --no-save karma karma-cli karma-chrome-launcher karma-coverage
+          npm test -- --watch=false --browsers=ChromeHeadless
+
+      - name: Check for Angular Updates
+        run: npx ng update --force
+
+      - name: Apply Updates (Experimental!)
+        run: |
+          npx ng update --all --force
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "chore: auto-update Angular dependencies" || echo "No changes"
+          git push || echo "No push (no changes or no permission)"
