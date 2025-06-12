@@ -1,2 +1,98 @@
-<h1>Willkommen zu meinem Blog</h1>
-<mat-slide-toggle>Toggle me!</mat-slide-toggle>
+<mat-form-field
+  style="
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    padding: 8px;
+  "
+>
+  <mat-label>Suche</mat-label>
+  <input matInput placeholder="z.B. Blogbeitrag 3" [(ngModel)]="searchText" />
+</mat-form-field>
+
+<div class="button-group">
+  <button
+    mat-raised-button
+    color="{{ selectedTag === null ? 'primary' : '' }}"
+    [ngClass]="{ 'active-button': selectedTag === null }"
+    (click)="selectedTag = null"
+  >
+    Alle
+  </button>
+
+  <button
+    mat-raised-button
+    color="{{ selectedTag === 'Garden' ? 'primary' : '' }}"
+    [ngClass]="{ 'active-button': selectedTag === 'Garden' }"
+    (click)="selectTag('Garden')"
+  >
+    Garden
+  </button>
+
+  <button
+    mat-raised-button
+    color="{{ selectedTag === 'House' ? 'primary' : '' }}"
+    [ngClass]="{ 'active-button': selectedTag === 'House' }"
+    (click)="selectTag('House')"
+  >
+    House
+  </button>
+
+  <button
+    mat-raised-button
+    color="{{ selectedTag === 'Food' ? 'primary' : '' }}"
+    [ngClass]="{ 'active-button': selectedTag === 'Food' }"
+    (click)="selectTag('Food')"
+  >
+    Food
+  </button>
+</div>
+
+<!-- Switch Beschreibung -->
+<div
+  class="description"
+  style="margin: 20px; text-align: center; font-style: italic"
+>
+  @switch (selectedTag) {
+    @case ("Garden") {
+      <p>🌿 Hier findest du alle Beiträge rund um Garten und Pflanzen.</p>
+    }
+    @case ("House") {
+      <p>🏠 Alles zum Thema Haus, Wohnen und Einrichtung.</p>
+    }
+    @case ("Food") {
+      <p>🍔 Alles zum Thema Food.</p>
+    }
+    @default {
+      <p>📚 Wähle ein Thema aus, um passende Beiträge zu sehen.</p>
+    }
+  }
+</div>
+
+<div class="no-results" style="color: red; text-align: center; margin: 20px">
+  @if (filteredCards.length === 0) {
+    Keine Beiträge gefunden für "{{ selectedTag }}".
+  }
+</div>
+
+<div class="card-container">
+  @for (item of filteredCards; track $index) {
+    <mat-card class="card">
+      <mat-card-title>{{ item.title }}</mat-card-title>
+      <mat-card-subtitle
+        class="tag"
+        [ngStyle]="{
+          'background-color':
+            item.tag === 'Garden'
+              ? '#61654a'
+              : item.tag === 'House'
+                ? '#b49b8d'
+                : '#526254',
+        }"
+        >{{ item.tag }}
+      </mat-card-subtitle>
+      <mat-card-content>{{ item.content }}</mat-card-content>
+    </mat-card>
+  }
+</div>
