@@ -11,10 +11,12 @@ import {
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import { provideGlobalErrorHandler } from './core/error/provider';
+import { provideGlobalErrorHandler } from './core/error';
 import coreInterceptors from './core/http';
 import { authInterceptor, provideAuth } from 'angular-auth-oidc-client';
 import { authConfig } from './core/auth/auth.config';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,5 +29,13 @@ export const appConfig: ApplicationConfig = {
     ),
     provideGlobalErrorHandler(),
     provideAuth(authConfig),
+    provideTranslateService({
+      loader: provideTranslateHttpLoader({
+        prefix: '/i18n/',
+        suffix: '.json',
+      }),
+      fallbackLang: 'en',
+      lang: 'en',
+    }),
   ],
 };
