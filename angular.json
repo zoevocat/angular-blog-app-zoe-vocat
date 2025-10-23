@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "blog-app": {
+    "blogapp-20": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -15,10 +15,8 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/blog-app",
-            "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -29,18 +27,13 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/silent-renew.html"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/rose-red.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
-            ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
@@ -73,22 +66,22 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "blog-app:build:production"
+              "buildTarget": "blogapp-20:build:production"
             },
             "development": {
-              "buildTarget": "blog-app:build:development"
+              "buildTarget": "blogapp-20:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "polyfills": [
               "zone.js",
@@ -103,10 +96,9 @@
               }
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/rose-red.css",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
-            ],
-            "scripts": []
+            ]
           }
         },
         "lint": {
