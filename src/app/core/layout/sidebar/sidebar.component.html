@@ -24,7 +24,9 @@
         >English</a
       >
       @if (canAddBlog()) {
-        <a mat-list-item [routerLink]="['/add-blog/']">Neuen Blog erstellen</a>
+        <a mat-list-item [routerLink]="['/add-blog/']">{{
+          "SIDEBAR.CREATE_NEW_BLOG_BUTTON" | translate
+        }}</a>
       }
       @switch (isAuthenticated()) {
         @case (false) {
@@ -71,7 +73,7 @@
             color="accent"
             routerLink="/add-blog"
           >
-            Neuen Blog erstellen
+            {{ "SIDEBAR.CREATE_NEW_BLOG_BUTTON" | translate }}
           </button>
         }
       }
