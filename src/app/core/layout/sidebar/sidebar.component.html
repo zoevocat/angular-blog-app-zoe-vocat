@@ -9,6 +9,20 @@
   >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
+      <a
+        mat-list-item
+        tabindex="0"
+        (click)="changeLanguage('de')"
+        (keydown)="changeLanguage('de')"
+        >Deutsch</a
+      >
+      <a
+        mat-list-item
+        tabindex="0"
+        (click)="changeLanguage('en')"
+        (keydown)="changeLanguage('en')"
+        >English</a
+      >
       @if (canAddBlog()) {
         <a mat-list-item [routerLink]="['/add-blog/']">Neuen Blog erstellen</a>
       }
